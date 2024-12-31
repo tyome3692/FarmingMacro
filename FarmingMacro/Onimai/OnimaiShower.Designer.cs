@@ -42,7 +42,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(589, 646);
             textBox1.TabIndex = 0;
-            textBox1.Text = resources.GetString("textBox1.Text");
+            textBox1.Text = resources.GetString("OnimaiImageText");
             // 
             // OnimaiShower
             // 
