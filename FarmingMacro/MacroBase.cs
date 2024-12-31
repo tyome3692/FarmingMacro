@@ -108,9 +108,7 @@ namespace FarmingMacro
             Random random = new Random();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-#pragma warning disable CA5394
             int lim = random.Next(minimum, limit);
-#pragma warning restore CA5394
             while (stopwatch.Elapsed < new TimeSpan(0, 0, 0, 0, lim) && isRunning) { }
         }
 
