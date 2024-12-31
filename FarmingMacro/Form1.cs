@@ -57,7 +57,7 @@
                 case Keys inventory when inventory == (Keys)Properties.Settings.Default.inv:
                 case Keys chat when chat == (Keys)Properties.Settings.Default.chat:
                 case Keys.Escape:
-                    MacroBase.StopMacro();                    
+                    MacroBase.StopMacro();
                     isReady = false;
                     Console.WriteLine("end");
                     button1.Text = "起動";

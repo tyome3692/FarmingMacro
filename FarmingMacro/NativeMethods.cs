@@ -148,9 +148,9 @@ namespace FarmingMacro
 
             if (RemoveMenu(closeMenuHandle, SC_CLOSE, MF_BYCOMMAND) == 0)
             {
-                Console.WriteLine($"RemoveMenu関数が失敗しました。Error : {Marshal.GetLastWin32Error()}"); 
+                Console.WriteLine($"RemoveMenu関数が失敗しました。Error : {Marshal.GetLastWin32Error()}");
             }
-            if(RemoveMenu(closeMenuHandle, SC_MAXIMIZE, MF_BYCOMMAND) == 0)
+            if (RemoveMenu(closeMenuHandle, SC_MAXIMIZE, MF_BYCOMMAND) == 0)
             {
                 Console.WriteLine($"RemoveMenu関数が失敗しました。Error : {Marshal.GetLastWin32Error()}");
             }
@@ -164,7 +164,7 @@ namespace FarmingMacro
             consoleMode &= ~ENABLE_QUICK_EDIT;
             SetConsoleMode(inputHandle, consoleMode);
 
-            SetWindowPos(GetConsoleWindow(), (IntPtr)(-1), -7, 310, 250, 200, SWP_SHOWWINDOW);
+            SetWindowPos(GetConsoleWindow(), -1, -7, 310, 250, 200, SWP_SHOWWINDOW);
         }
 
         private static void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
