@@ -52,6 +52,7 @@
                 case Keys chat when chat == (Keys)Properties.Settings.Default.chat && Properties.Settings.Default.chatStop:
                 case Keys esc when esc == Keys.Escape && Properties.Settings.Default.escStop:
                     MacroBase.StopMacro();
+                    Console.Clear();
                     Console.WriteLine("一時停止中");
                     break;
                 case Keys start when start == (Keys)Properties.Settings.Default.start:

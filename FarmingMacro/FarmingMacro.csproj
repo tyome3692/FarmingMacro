@@ -9,6 +9,7 @@
 		<AnalysisLevel>latest-all</AnalysisLevel>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ApplicationIcon>iron_hoe.ico</ApplicationIcon>
+		<NeutralLanguage>ja-JP</NeutralLanguage>
 	</PropertyGroup>
 
 	<ItemGroup>

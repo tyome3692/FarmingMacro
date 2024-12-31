@@ -22,11 +22,11 @@ namespace FarmingMacro
         [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial IntPtr GetModuleHandleW(string lpModuleName);
 
-        protected const int WH_KEYBOARD_LL = 0x000D;
-        protected const int WM_KEYDOWN = 0x0100;
-        protected const int WM_KEYUP = 0x0101;
-        protected const int WM_SYSKEYDOWN = 0x0104;
-        protected const int WM_SYSKEYUP = 0x0105;
+        const int WH_KEYBOARD_LL = 0x000D;
+        const int WM_KEYDOWN = 0x0100;
+        const int WM_KEYUP = 0x0101;
+        const int WM_SYSKEYDOWN = 0x0104;
+        const int WM_SYSKEYUP = 0x0105;
 
         [StructLayout(LayoutKind.Sequential)]
         internal sealed class KBDLLHOOKSTRUCT
@@ -94,11 +94,11 @@ namespace FarmingMacro
         internal event KeyEventHandler? KeyDownEvent;
         internal event KeyEventHandler? KeyUpEvent;
 
-        protected void OnKeyDownEvent(int keyCode)
+        void OnKeyDownEvent(int keyCode)
         {
             KeyDownEvent?.Invoke(this, new KeyEventArgs(keyCode));
         }
-        protected void OnKeyUpEvent(int keyCode)
+        void OnKeyUpEvent(int keyCode)
         {
             KeyUpEvent?.Invoke(this, new KeyEventArgs(keyCode));
         }

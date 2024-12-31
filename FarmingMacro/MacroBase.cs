@@ -34,6 +34,7 @@ namespace FarmingMacro
             if (isRunning)
             {
                 isRunning = false;
+                Console.Clear();
                 Console.WriteLine("一時停止中");
                 return;
             }
