@@ -33,25 +33,22 @@
         }
 
         internal static bool isOnimaiShown;
-        static Random rand = new Random();
         private void KeyboardHook_KeyDownEvent(object sender, KeyEventArgs e)
         {
-            if (isOnimaiShown)
-                return;
-            if (!isOnimaiShown && rand.Next(99) < 1)
-            {
-                isOnimaiShown = true;
-                OnimaiShower os = new OnimaiShower();
-                os.ShowDialog();
-                os.Dispose();
-                return;
-            }
-
             if (!isReady)
                 return;
             switch ((Keys)e.KeyCode)
             {
                 case Keys end when end == (Keys)Properties.Settings.Default.end:
+                    if (isOnimaiShown)
+                        return;
+                    if (!isOnimaiShown && new Random().Next(99) < 1)
+                    {
+                        isOnimaiShown = true;
+                        OnimaiShower os = new OnimaiShower();
+                        os.ShowDialog();
+                        os.Dispose();
+                    }
                     WindowState = FormWindowState.Normal;
                     MacroBase.StopMacro();
                     keyboardHook.UnHook();
@@ -61,8 +58,13 @@
                 case Keys inventory when inventory == (Keys)Properties.Settings.Default.inv:
                 case Keys chat when chat == (Keys)Properties.Settings.Default.chat:
                 case Keys.Escape:
-                    MacroBase.StopMacro();
+                    MacroBase.StopMacro();                    
                     isReady = false;
+                    Console.WriteLine("end");
+                    button1.Text = "起動";
+                    menuStrip1.Enabled = true;
+                    comboBox1.Enabled = true;
+                    NativeMethods.FreeConsole();
                     break;
                 case Keys start when start == (Keys)Properties.Settings.Default.start:
                     MacroBase.FullAutomaticalyCropCollecter(comboBox1.SelectedItem?.ToString() ?? "wheat");

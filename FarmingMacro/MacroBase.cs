@@ -66,7 +66,6 @@ namespace FarmingMacro
                             break;
                     }
                 }
-                Console.WriteLine("end");
             }).ConfigureAwait(true);
         }
 

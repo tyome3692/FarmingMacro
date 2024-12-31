@@ -15,6 +15,7 @@ namespace FarmingMacro
         public OnimaiShower()
         {
             InitializeComponent();
+            TopMost = true;
         }
 
         private void OnimaiShower_Load(object sender, EventArgs e)
