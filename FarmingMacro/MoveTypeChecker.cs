@@ -5,9 +5,6 @@ namespace FarmingMacro
 {
     internal class MoveTypeChecker
     {
-        public MoveTypeChecker()
-        {
-        }
         //それぞれの数字は仮想コード
         internal enum MoveType
         {
@@ -235,8 +232,6 @@ namespace FarmingMacro
             //Rectangle splintRect = new Rectangle(x * width / 1000000 + xCorrector, y * height / 1000000 + yCorrector + rowCorrector, 100, 13);
             Rectangle splintRect = new Rectangle(xCorrector, yCorrector + rowCorrector, 100, 13);
             Bitmap splintImg = img.Clone(splintRect, img.PixelFormat);
-            splintImg.Save(Environment.CurrentDirectory + "\\test.png", ImageFormat.Png);
-            img.Save(Environment.CurrentDirectory + "\\a.png", ImageFormat.Png);
             img.Dispose();
             return splintImg;
         }
