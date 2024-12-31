@@ -21,7 +21,7 @@
             string imageDirectoryPath = Environment.CurrentDirectory + @"\images\farm";
             if (!Directory.Exists(imageDirectoryPath))
             {
-                MessageBox.Show("imagesが見つかりませんでした。ファイル構成を確認してください", "FarmingMacro");
+                MessageBox.Show("imagesディレクトリが見つかりませんでした。ファイル構成を確認してください", "FarmingMacro");
                 Close();
             }
             foreach (string d in Directory.GetDirectories(imageDirectoryPath))
@@ -41,33 +41,33 @@
                 case Keys end when end == (Keys)Properties.Settings.Default.end:
                     if (isOnimaiShown)
                         return;
-                    if (!isOnimaiShown && new Random().Next(99) < 1)
-                    {
-                        isOnimaiShown = true;
-                        OnimaiShower os = new OnimaiShower();
-                        os.ShowDialog();
-                        os.Dispose();
-                    }
+                    OnimaiChallenge();
                     WindowState = FormWindowState.Normal;
                     MacroBase.StopMacro();
                     keyboardHook.UnHook();
                     Close();
                     break;
                 case Keys stop when stop == (Keys)Properties.Settings.Default.stop:
-                case Keys inventory when inventory == (Keys)Properties.Settings.Default.inv:
-                case Keys chat when chat == (Keys)Properties.Settings.Default.chat:
-                case Keys.Escape:
+                case Keys inventory when inventory == (Keys)Properties.Settings.Default.inv && Properties.Settings.Default.invStop:
+                case Keys chat when chat == (Keys)Properties.Settings.Default.chat && Properties.Settings.Default.chatStop:
+                case Keys esc when esc == Keys.Escape && Properties.Settings.Default.escStop:
                     MacroBase.StopMacro();
-                    isReady = false;
-                    Console.WriteLine("end");
-                    button1.Text = "起動";
-                    menuStrip1.Enabled = true;
-                    comboBox1.Enabled = true;
-                    NativeMethods.FreeConsole();
+                    Console.WriteLine("一時停止中");
                     break;
                 case Keys start when start == (Keys)Properties.Settings.Default.start:
-                    MacroBase.FullAutomaticalyCropCollecter(comboBox1.SelectedItem?.ToString() ?? "wheat");
+                    MacroBase.FullAutomaticalyCropCollecter(comboBox1.SelectedItem?.ToString() ?? "wheat");                    
                     break;
+            }
+        }
+
+        private static void OnimaiChallenge()
+        {
+            if (!isOnimaiShown && new Random().Next(99) < 1)
+            {
+                isOnimaiShown = true;
+                OnimaiShower os = new OnimaiShower();
+                os.ShowDialog();
+                os.Dispose();
             }
         }
 

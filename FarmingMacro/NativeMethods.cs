@@ -3,7 +3,7 @@ using System.Text;
 
 namespace FarmingMacro
 {
-    internal partial class NativeMethods
+    internal sealed partial class NativeMethods
     {
         //window系
         [LibraryImport("user32.dll")]

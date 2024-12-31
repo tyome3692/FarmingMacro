@@ -47,12 +47,7 @@
             label10 = new Label();
             button1 = new Button();
             button2 = new Button();
-            button3 = new Button();
-            label11 = new Label();
-            label12 = new Label();
-            numericUpDown1 = new NumericUpDown();
-            label13 = new Label();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            checkBox3 = new CheckBox();
             SuspendLayout();
             // 
             // label1
@@ -216,7 +211,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(183, 326);
+            button2.Location = new Point(183, 258);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
             button2.TabIndex = 18;
@@ -224,61 +219,23 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
-            // button3
+            // checkBox3
             // 
-            button3.Location = new Point(12, 262);
-            button3.Name = "button3";
-            button3.Size = new Size(165, 23);
-            button3.TabIndex = 19;
-            button3.Text = "プラッキーのコンフィグを読み込み";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(12, 288);
-            label11.Name = "label11";
-            label11.Size = new Size(44, 15);
-            label11.TabIndex = 20;
-            label11.Text = "label11";
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Location = new Point(62, 288);
-            label12.Name = "label12";
-            label12.Size = new Size(44, 15);
-            label12.TabIndex = 21;
-            label12.Text = "label12";
-            // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Location = new Point(12, 326);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(77, 23);
-            numericUpDown1.TabIndex = 22;
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Location = new Point(12, 308);
-            label13.Name = "label13";
-            label13.Size = new Size(77, 15);
-            label13.TabIndex = 23;
-            label13.Text = "座標の行番号";
+            checkBox3.AutoSize = true;
+            checkBox3.Location = new Point(12, 262);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(113, 19);
+            checkBox3.TabIndex = 20;
+            checkBox3.Text = "Escapeキーで停止";
+            checkBox3.UseVisualStyleBackColor = true;
             // 
             // SettingForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(270, 361);
+            ClientSize = new Size(270, 288);
             ControlBox = false;
-            Controls.Add(label13);
-            Controls.Add(numericUpDown1);
-            Controls.Add(label12);
-            Controls.Add(label11);
-            Controls.Add(button3);
+            Controls.Add(checkBox3);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label10);
@@ -302,7 +259,6 @@
             MinimizeBox = false;
             Name = "SettingForm";
             Text = "SettingForm";
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -328,10 +284,6 @@
         private Label label10;
         private Button button1;
         private Button button2;
-        private Button button3;
-        private Label label11;
-        private Label label12;
-        private NumericUpDown numericUpDown1;
-        private Label label13;
+        private CheckBox checkBox3;
     }
 }

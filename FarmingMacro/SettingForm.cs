@@ -128,7 +128,7 @@ namespace FarmingMacro
             textBox3.Tag = label8;
             textBox4.Tag = label9;
             textBox5.Tag = label10;
-#pragma warning disable CA1305
+
             textBox1.Text = Properties.Settings.Default.start.ToString();
             textBox2.Text = Properties.Settings.Default.end.ToString();
             textBox3.Text = Properties.Settings.Default.stop.ToString();
@@ -140,28 +140,18 @@ namespace FarmingMacro
             label8.Text = ((Keys)Properties.Settings.Default.stop).ToString();
             label9.Text = ((Keys)Properties.Settings.Default.inv).ToString();
             label10.Text = ((Keys)Properties.Settings.Default.chat).ToString();
-#pragma warning restore CA1305
-            label11.Text = "基準座標";
-            label12.Text = $"x : {Properties.Settings.Default.coordX},y : {Properties.Settings.Default.coordY}";
-
-            numericUpDown1.Value = Properties.Settings.Default.coordRow;
 
             button1.Click += Button1_Click;
 
-            checkBox1.Checked = true;
-            checkBox2.Checked = true;
+            checkBox1.Checked = Properties.Settings.Default.chatStop;
+            checkBox2.Checked = Properties.Settings.Default.invStop;
+            checkBox3.Checked = Properties.Settings.Default.escStop;
 
             MaximumSize = Size;
             MinimumSize = Size;
             Text = "環境設定";
 
             isMCOptionLoad = false;
-
-            button3.Enabled = false;
-            label11.Enabled = false;
-            label12.Enabled = false;
-            label13.Enabled = false;
-            numericUpDown1.Enabled = false;
         }
 
         private void Button1_Click(object? sender, EventArgs e)
@@ -224,8 +214,12 @@ namespace FarmingMacro
                 Properties.Settings.Default.inv = isMCOptionLoad ? minecraftKeyList[invKeyCode] : invKeyCode;
             if (int.TryParse(tb5, out int chatKeyCode))
                 Properties.Settings.Default.chat = isMCOptionLoad ? minecraftKeyList[chatKeyCode] : chatKeyCode;
-            Properties.Settings.Default.coordRow = (int)numericUpDown1.Value;
             string[] strs = [tb1, tb2, tb3, tb4, tb5];
+
+            Properties.Settings.Default.invStop = checkBox1.Checked;
+            Properties.Settings.Default.chatStop = checkBox2.Checked;
+            Properties.Settings.Default.escStop = checkBox3.Checked;
+
             if (hasDist(strs))
             {
                 MessageBox.Show("同じキーは選択できません。");
@@ -236,41 +230,6 @@ namespace FarmingMacro
                 Close();
             }
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.FileName = "プラッキーのコンフィグファイル(plucky.cfg)を選択してください";
-            ofd.InitialDirectory = $@"C:\Users\{Environment.UserName}\AppData\Roaming\.minecraft";
-            ofd.Filter = "|plucky.cfg";
-            ofd.FilterIndex = 1;
-            ofd.Title = "プラッキーのコンフィグファイル(plucky.cfg)を選択してください";
-            ofd.RestoreDirectory = true;
-            ofd.Multiselect = false;
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                GetCoordPos(ofd.FileName);
-            }
-            ofd.Dispose();
-        }
-
-        private void GetCoordPos(string filePath)
-        {
-            string fileText = File.ReadAllText(filePath);
-            string x = Regex.Match(fileText, @"(?<=simpledebug \{(.|\n)+D:x=)(\d|\.)+").Value;
-            string y = Regex.Match(fileText, @"(?<=simpledebug \{(.|\n)+D:y=)(\d|\.)+").Value;
-            if (float.TryParse(x, out float xF) && float.TryParse(y, out float yF))
-            {
-                int multiply = 10000;
-                int coordX = (int)Math.Round(xF * multiply, 0);
-                int coordY = (int)Math.Round(yF * multiply, 0);
-                Properties.Settings.Default.coordX = coordX;
-                Properties.Settings.Default.coordY = coordY;
-                label12.Text = $"x : {Properties.Settings.Default.coordX},y : {Properties.Settings.Default.coordY}";
-                Properties.Settings.Default.Save();
-            }
-        }
-
         private static bool hasDist(string[] arr)
         {
             for (int i = 0; i < arr.Length - 1; i++)
@@ -285,7 +244,5 @@ namespace FarmingMacro
             }
             return false;
         }
-
-
     }
 }

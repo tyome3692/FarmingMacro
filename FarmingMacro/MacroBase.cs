@@ -6,7 +6,7 @@ using MoveType = FarmingMacro.MoveTypeChecker.MoveType;
 
 namespace FarmingMacro
 {
-    internal class MacroBase
+    internal sealed class MacroBase
     {
 
         // Constants for mouse event flags.
@@ -34,6 +34,7 @@ namespace FarmingMacro
             if (isRunning)
             {
                 isRunning = false;
+                Console.WriteLine("一時停止中");
                 return;
             }
 
