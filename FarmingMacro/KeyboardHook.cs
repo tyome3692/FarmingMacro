@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace FarmingMacro
 {
-    partial class KeyboardHook
+    sealed partial class KeyboardHook
     {
         [LibraryImport("user32.dll", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
@@ -22,24 +22,24 @@ namespace FarmingMacro
         [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial IntPtr GetModuleHandleW(string lpModuleName);
 
-        protected const int WH_KEYBOARD_LL = 0x000D;
-        protected const int WM_KEYDOWN = 0x0100;
-        protected const int WM_KEYUP = 0x0101;
-        protected const int WM_SYSKEYDOWN = 0x0104;
-        protected const int WM_SYSKEYUP = 0x0105;
+        const int WH_KEYBOARD_LL = 0x000D;
+        const int WM_KEYDOWN = 0x0100;
+        const int WM_KEYUP = 0x0101;
+        const int WM_SYSKEYDOWN = 0x0104;
+        const int WM_SYSKEYUP = 0x0105;
 
         [StructLayout(LayoutKind.Sequential)]
-        public class KBDLLHOOKSTRUCT
+        internal sealed class KBDLLHOOKSTRUCT
         {
-            public uint vkCode;
-            public uint scanCode;
-            public KBDLLHOOKSTRUCTFlags flags;
-            public uint time;
-            public UIntPtr dwExtraInfo;
+            internal uint vkCode;
+            internal uint scanCode;
+            internal KBDLLHOOKSTRUCTFlags flags;
+            internal uint time;
+            internal UIntPtr dwExtraInfo;
         }
 
         [Flags]
-        public enum KBDLLHOOKSTRUCTFlags : uint
+        internal enum KBDLLHOOKSTRUCTFlags : uint
         {
             KEYEVENTF_EXTENDEDKEY = 0x0001,
             KEYEVENTF_KEYUP = 0x0002,
@@ -52,7 +52,7 @@ namespace FarmingMacro
         private KeyboardProc? proc;
         private IntPtr hookId = IntPtr.Zero;
 
-        public void Hook()
+        internal void Hook()
         {
             if (hookId == IntPtr.Zero)
             {
@@ -67,21 +67,21 @@ namespace FarmingMacro
             }
         }
 
-        public void UnHook()
+        internal void UnHook()
         {
             UnhookWindowsHookEx(hookId);
             hookId = IntPtr.Zero;
         }
 
-        public IntPtr HookProcedure(int nCode, IntPtr wParam, IntPtr lParam)
+        internal IntPtr HookProcedure(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if (nCode >= 0 && (wParam == (IntPtr)WM_KEYDOWN || wParam == (IntPtr)WM_SYSKEYDOWN))
+            if (nCode >= 0 && (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN))
             {
                 var kb = (KBDLLHOOKSTRUCT?)Marshal.PtrToStructure(lParam, typeof(KBDLLHOOKSTRUCT));
                 var vkCode = (int)(kb?.vkCode ?? throw new ArgumentNullException(nameof(lParam)));
                 OnKeyDownEvent(vkCode);
             }
-            else if (nCode >= 0 && (wParam == (IntPtr)WM_KEYUP || wParam == (IntPtr)WM_SYSKEYUP))
+            else if (nCode >= 0 && (wParam == WM_KEYUP || wParam == WM_SYSKEYUP))
             {
                 var kb = (KBDLLHOOKSTRUCT?)Marshal.PtrToStructure(lParam, typeof(KBDLLHOOKSTRUCT));
                 var vkCode = (int)(kb?.vkCode ?? throw new ArgumentNullException(nameof(lParam)));
@@ -90,26 +90,26 @@ namespace FarmingMacro
             return CallNextHookEx(hookId, nCode, wParam, lParam);
         }
 
-        public delegate void KeyEventHandler(object sender, KeyEventArgs e);
-        public event KeyEventHandler? KeyDownEvent;
-        public event KeyEventHandler? KeyUpEvent;
+        internal delegate void KeyEventHandler(object sender, KeyEventArgs e);
+        internal event KeyEventHandler? KeyDownEvent;
+        internal event KeyEventHandler? KeyUpEvent;
 
-        protected void OnKeyDownEvent(int keyCode)
+        void OnKeyDownEvent(int keyCode)
         {
             KeyDownEvent?.Invoke(this, new KeyEventArgs(keyCode));
         }
-        protected void OnKeyUpEvent(int keyCode)
+        void OnKeyUpEvent(int keyCode)
         {
             KeyUpEvent?.Invoke(this, new KeyEventArgs(keyCode));
         }
 
     }
 
-    public class KeyEventArgs : EventArgs
+    internal class KeyEventArgs : EventArgs
     {
-        public int KeyCode { get; }
+        internal int KeyCode { get; }
 
-        public KeyEventArgs(int keyCode)
+        internal KeyEventArgs(int keyCode)
         {
             KeyCode = keyCode;
         }

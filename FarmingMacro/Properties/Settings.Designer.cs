@@ -86,48 +86,48 @@ namespace FarmingMacro.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int coordX {
-            get {
-                return ((int)(this["coordX"]));
-            }
-            set {
-                this["coordX"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int coordY {
-            get {
-                return ((int)(this["coordY"]));
-            }
-            set {
-                this["coordY"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int coordRow {
-            get {
-                return ((int)(this["coordRow"]));
-            }
-            set {
-                this["coordRow"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int cropIndex {
             get {
                 return ((int)(this["cropIndex"]));
             }
             set {
                 this["cropIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool escStop {
+            get {
+                return ((bool)(this["escStop"]));
+            }
+            set {
+                this["escStop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chatStop {
+            get {
+                return ((bool)(this["chatStop"]));
+            }
+            set {
+                this["chatStop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool invStop {
+            get {
+                return ((bool)(this["invStop"]));
+            }
+            set {
+                this["invStop"] = value;
             }
         }
     }

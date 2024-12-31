@@ -3,11 +3,8 @@ using System.Runtime.InteropServices;
 
 namespace FarmingMacro
 {
-    internal class MoveTypeChecker
+    internal sealed class MoveTypeChecker
     {
-        public MoveTypeChecker()
-        {
-        }
         //それぞれの数字は仮想コード
         internal enum MoveType
         {
@@ -218,9 +215,6 @@ namespace FarmingMacro
 
         private static Bitmap GetSplitedHiddenWindow()
         {
-            int x = Properties.Settings.Default.coordX;//0-100000
-            int y = Properties.Settings.Default.coordY;//0-100000
-            int row = Properties.Settings.Default.coordRow;
             int xCorrector = 8 - 2;//黒枠線分 - 補正
             int yCorrector = 23 + 8;//タイトルバー+黒枠線分
             int rowCorrector = 42;//debugInfoの行補正
@@ -228,11 +222,7 @@ namespace FarmingMacro
             //ウィンドウをキャプチャする
             Bitmap img = NativeMethods.GetHiddenWindow();
 
-            int width = img.Width;
-            int height = img.Height;
-
             //ここを調整 うまくいかぬTT
-            //Rectangle splintRect = new Rectangle(x * width / 1000000 + xCorrector, y * height / 1000000 + yCorrector + rowCorrector, 100, 13);
             Rectangle splintRect = new Rectangle(xCorrector, yCorrector + rowCorrector, 100, 13);
             Bitmap splintImg = img.Clone(splintRect, img.PixelFormat);
             img.Dispose();

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace FarmingMacro
 {
-    internal partial class NativeMethods
+    internal sealed partial class NativeMethods
     {
         //window系
         [LibraryImport("user32.dll")]
@@ -56,13 +56,12 @@ namespace FarmingMacro
         [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial IntPtr GetSystemMenu(IntPtr hWnd, UInt32 bRevert);
 
-        [LibraryImport("user32.dll")]
+        [LibraryImport("user32.dll", SetLastError = true)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial UInt32 RemoveMenu(IntPtr hMenu, UInt32 nPosition, UInt32 wFlags);
         private const UInt32 SC_CLOSE = 0x0000F060;
         private const UInt32 SC_MAXIMIZE = 0xF030;
         private const UInt32 MF_BYCOMMAND = 0x0;
-        private const UInt32 SC_MOVE = 0xF010;
 
         [LibraryImport("kernel32.dll", SetLastError = true)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
@@ -138,14 +137,23 @@ namespace FarmingMacro
 
             Console.Title = "自動作物回収機";
             Console.CursorVisible = false;
+#pragma warning disable CA2000
             Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
+#pragma warning restore CA2000
             Console.CancelKeyPress += Console_CancelKeyPress;
             Console.OutputEncoding = Encoding.UTF8;
 
             IntPtr consoleHandle = GetConsoleWindow();
             IntPtr closeMenuHandle = GetSystemMenu(consoleHandle, 0);
-            RemoveMenu(closeMenuHandle, SC_CLOSE, MF_BYCOMMAND);
-            RemoveMenu(closeMenuHandle, SC_MAXIMIZE, MF_BYCOMMAND);
+
+            if (RemoveMenu(closeMenuHandle, SC_CLOSE, MF_BYCOMMAND) == 0)
+            {
+                Console.WriteLine($"RemoveMenu関数が失敗しました。Error : {Marshal.GetLastWin32Error()}");
+            }
+            if (RemoveMenu(closeMenuHandle, SC_MAXIMIZE, MF_BYCOMMAND) == 0)
+            {
+                Console.WriteLine($"RemoveMenu関数が失敗しました。Error : {Marshal.GetLastWin32Error()}");
+            }
 
             uint consoleMode = 0;
             IntPtr inputHandle = GetStdHandle(STD_INPUT_HANDLE);
@@ -156,7 +164,7 @@ namespace FarmingMacro
             consoleMode &= ~ENABLE_QUICK_EDIT;
             SetConsoleMode(inputHandle, consoleMode);
 
-            SetWindowPos(GetConsoleWindow(), (IntPtr)(-1), -7, 310, 250, 200, SWP_SHOWWINDOW);
+            SetWindowPos(GetConsoleWindow(), -1, -7, 310, 250, 200, SWP_SHOWWINDOW);
         }
 
         private static void Console_CancelKeyPress(object? sender, ConsoleCancelEventArgs e)
@@ -205,7 +213,6 @@ namespace FarmingMacro
             Graphics memg = Graphics.FromImage(img);
             IntPtr dc = memg.GetHdc();
             PrintWindow(handle, dc, 0);
-            //img.Save($@"{Environment.CurrentDirectory}\test.png", ImageFormat.Png);
 
             memg.ReleaseHdc(dc);
             memg.Dispose();

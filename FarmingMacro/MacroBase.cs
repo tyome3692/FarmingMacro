@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+
 using MoveType = FarmingMacro.MoveTypeChecker.MoveType;
 
 namespace FarmingMacro
 {
-    internal class MacroBase
+    internal sealed class MacroBase
     {
 
         // Constants for mouse event flags.
@@ -34,6 +34,8 @@ namespace FarmingMacro
             if (isRunning)
             {
                 isRunning = false;
+                Console.Clear();
+                Console.WriteLine("一時停止中");
                 return;
             }
 
@@ -66,7 +68,6 @@ namespace FarmingMacro
                             break;
                     }
                 }
-                Console.WriteLine("end");
             }).ConfigureAwait(true);
         }
 
@@ -109,9 +110,7 @@ namespace FarmingMacro
             Random random = new Random();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-#pragma warning disable CA5394
             int lim = random.Next(minimum, limit);
-#pragma warning restore CA5394
             while (stopwatch.Elapsed < new TimeSpan(0, 0, 0, 0, lim) && isRunning) { }
         }
 
