@@ -53,7 +53,6 @@
             Name = "OnimaiShower";
             Text = "おにまいは最高だぜ!";
             FormClosed += OnimaiShower_FormClosed;
-            Load += OnimaiShower_Load;
             ResumeLayout(false);
             PerformLayout();
         }
