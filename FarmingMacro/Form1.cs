@@ -14,7 +14,6 @@
             Size = new Size(250, 160);
             MaximumSize = Size;
             MinimumSize = Size;
-            //WindowState = FormWindowState.Minimized;
             Location = new Point(-7, 505);
             label1.Text = "収穫する作物";
             button1.Text = "起動";
