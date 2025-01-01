@@ -7,73 +7,58 @@ namespace FarmingMacro
     {
         //window系
         [LibraryImport("user32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial IntPtr GetForegroundWindow();
 
         [LibraryImport("user32.dll", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial int GetWindowTextLengthW(IntPtr hWnd);
 
         [LibraryImport("user32.dll", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
 
         private static partial int GetWindowTextW(IntPtr hWnd, [Out] char[] lpString, int nMaxCount);
 
         [LibraryImport("user32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial IntPtr WindowFromPoint(POINT point);
 
         [LibraryImport("user32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static partial bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
         [LibraryImport("user32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static partial bool GetWindowRect(IntPtr hwnd, out RECT lpRect);
 
         [LibraryImport("user32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static partial bool PrintWindow(IntPtr hwnd, IntPtr hDC, uint nFlags);
 
         //Console系
         [LibraryImport("kernel32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static partial bool AllocConsole();
         [LibraryImport("kernel32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static partial bool FreeConsole();
 
         [LibraryImport("kernel32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial IntPtr GetConsoleWindow();
 
         [LibraryImport("user32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial IntPtr GetSystemMenu(IntPtr hWnd, UInt32 bRevert);
 
         [LibraryImport("user32.dll", SetLastError = true)]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial UInt32 RemoveMenu(IntPtr hMenu, UInt32 nPosition, UInt32 wFlags);
         private const UInt32 SC_CLOSE = 0x0000F060;
         private const UInt32 SC_MAXIMIZE = 0xF030;
         private const UInt32 MF_BYCOMMAND = 0x0;
 
         [LibraryImport("kernel32.dll", SetLastError = true)]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial IntPtr GetStdHandle(int nStdHandle);
 
         [LibraryImport("kernel32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static partial bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
 
         [LibraryImport("kernel32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static partial bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
 
@@ -81,16 +66,13 @@ namespace FarmingMacro
         const uint ENABLE_QUICK_EDIT = 0x0040;
 
         [LibraryImport("kernel32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         private static partial IntPtr GetLastError();
 
         //キーボード、マウス操作
         [LibraryImport("user32.dll", SetLastError = true)]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         internal static partial void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
         [LibraryImport("user32.dll")]
-        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         internal static partial void mouse_event(uint dwFlags, int dx, int dy, uint dwData, int dwExtraInfo);
 
         private const int SWP_SHOWWINDOW = 0x0040;
